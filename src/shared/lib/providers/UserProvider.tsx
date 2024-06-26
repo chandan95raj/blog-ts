@@ -10,7 +10,6 @@ interface IUser {
 
 interface IUserContextType {
     user: IUser | null;
-    loading: boolean;
     getMe: () => void;
     registerUser: (email: string, password: string) => Promise<void>;
     loginUser: (email: string, password: string) => Promise<void>;
