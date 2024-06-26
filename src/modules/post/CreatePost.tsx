@@ -65,7 +65,7 @@ const CreatePost: React.FC<Iprops> = ({ setMutate }) => {
     ];
 
     const [code, setCode] = useState(
-        "hello guys you can also add fonts and another features to this editor."
+        "hello guys you can also add fonts and another features to this editors."
     );
     const handleProcedureContentChange = (content: string) => {
         setCode(content);
