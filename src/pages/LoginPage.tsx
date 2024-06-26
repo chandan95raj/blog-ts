@@ -36,7 +36,7 @@ const LoginPage = () => {
                 title: "Login Successful",
                 description: new Date().toISOString()
             })
-            navigate("/")
+            navigate("/dashboard")
 
         } catch (error: unknown) {
             toast({
