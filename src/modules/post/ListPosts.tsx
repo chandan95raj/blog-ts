@@ -32,9 +32,14 @@ const ListPosts: React.FC<Iprops> = ({ mutate, setMutate }) => {
             const q = query(collection(db, "blogs"), where("author", "==", user?.user?.email));
             const response = await getDocs(q);
             response.forEach((doc) => {
+                const dataDoc = doc.data()
                 const data: IPost = {
-                    ...doc.data(),
-                    postId: doc.id.toString()
+                    postId: doc.id.toString(),
+                    author: dataDoc.author,
+                    content: dataDoc.content,
+                    date: dataDoc.date,
+                    title: dataDoc.title,
+
                 }
                 result.push(data);
                 // console.log(data);

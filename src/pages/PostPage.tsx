@@ -19,9 +19,14 @@ const PostPage = () => {
             const result: IPost[] = [];
             const response = await getDocs(collection(db, "blogs"));
             response.forEach((doc) => {
+                const dataDoc = doc.data()
                 const data: IPost = {
-                    ...doc.data(),
-                    postId: doc.id.toString()
+                    postId: doc.id.toString(),
+                    author: dataDoc.author,
+                    content: dataDoc.content,
+                    date: dataDoc.date,
+                    title: dataDoc.title,
+
                 }
                 result.push(data);
                 // console.log(data);

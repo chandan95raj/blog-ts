@@ -4,7 +4,6 @@ import { Button } from "@/shared/components/ui/button"
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
@@ -18,6 +17,7 @@ import { useForm } from 'react-hook-form'
 import { IPost } from './ListPosts'
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from '@/config/fireBaseConfig'
+import { IFormType } from './CreatePost'
 
 interface IProps {
     post: IPost,
@@ -63,13 +63,13 @@ const UpdatePost: React.FC<IProps> = ({ post, setMutate }) => {
     ];
 
     const [close, setClose] = useState<boolean>(false);
-    const [code, setCode] = useState(post.content);
-    const handleProcedureContentChange = (content: any) => {
+    const [code, setCode] = useState<string>(post.content);
+    const handleProcedureContentChange = (content: string) => {
         setCode(content);
     };
-    const { register, reset, handleSubmit, } = useForm({ defaultValues: { title: post.title } });
+    const { register, handleSubmit, } = useForm<IFormType>({ defaultValues: { title: post.title } });
 
-    const onSubmit = async (data: unknown) => {
+    const onSubmit = async (data: IFormType) => {
 
 
         try {
