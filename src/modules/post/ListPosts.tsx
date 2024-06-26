@@ -65,11 +65,11 @@ const ListPosts: React.FC<Iprops> = ({ mutate, setMutate }) => {
             <div className='flex flex-wrap justify-center gap-4'>
                 {posts !== null ?
                     <>{posts.map((post) => (
-                        <Card key={post.postId} className='w-2/5 hover:scale-105' >
-                            <CardHeader className='relative'>
+                        <Card key={post.postId} className='w-full md:w-2/5 hover:scale-105' >
+                            <CardHeader className='md:relative'>
                                 <CardTitle>{post.title}</CardTitle>
                                 <span>{post.author}</span>
-                                <div className='absolute right-4'>
+                                <div className='md:absolute right-4 flex'>
                                     <UpdatePost post={post} setMutate={setMutate} />
                                     <DeletePost setMutate={setMutate} postId={post.postId} />
                                 </div>
