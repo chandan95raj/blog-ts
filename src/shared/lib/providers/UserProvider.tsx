@@ -1,8 +1,7 @@
 import { auth } from "@/config/fireBaseConfig";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 import { createContext, ReactNode, useState } from "react"
-import Cookies from "js-cookie";
 interface IUser {
     id: string,
     name: string,
@@ -28,14 +27,14 @@ interface Iprops {
 
 const UserProvider: React.FC<Iprops> = ({ children }) => {
     const [user, setUser] = useState<IUser | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
 
 
     const registerUser = async (email: string, password: string) => {
         try {
             await createUserWithEmailAndPassword(auth, email, password);
-        } catch (error) {
-            throw new Error(error.message.toString());
+
+        } catch (error: unknown) {
+            throw new Error("Error Occur");
         }
     }
     const loginUser = async (email: string, password: string) => {
@@ -54,15 +53,16 @@ const UserProvider: React.FC<Iprops> = ({ children }) => {
                 id: response.user.uid,
                 name: response.user.displayName ? response.user.displayName : "",
             }));
-            const accessToken = response.user.accessToken as string;
+            // const accessToken = response.user.accessToken as string;
 
-            Cookies.set("accessToken", accessToken, { domain: "http://localhost:5173/", sameSite: "Lax", secure: false, path: "/" })
+            // Cookies.set("accessToken", accessToken, { domain: "http://localhost:5173/", sameSite: "Lax", secure: false, path: "/" })
             // Cookies.set("accessToken", accessToken, { domain: "http://localhost:5173/", path: "/", expires: 60, sameSite: "Lax", secure: false });
-            console.log(accessToken);
+            // console.log(accessToken);
 
 
-        } catch (error) {
-            throw new Error(error.message.toString());
+
+        } catch (error: unknown) {
+            throw new Error("Error Occur");
         }
     }
 
@@ -96,7 +96,7 @@ const UserProvider: React.FC<Iprops> = ({ children }) => {
     }
 
     return (
-        <UserContext.Provider value={{ loginUser: loginUser, registerUser: registerUser, loading: loading, user: user, logoutUser: logoutUser, getMe: getMe }} >
+        <UserContext.Provider value={{ loginUser: loginUser, registerUser: registerUser, user: user, logoutUser: logoutUser, getMe: getMe }} >
             {children}
         </UserContext.Provider>
     )

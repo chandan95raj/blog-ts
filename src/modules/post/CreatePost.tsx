@@ -70,7 +70,7 @@ const CreatePost: React.FC<Iprops> = ({ setMutate }) => {
     const handleProcedureContentChange = (content: string) => {
         setCode(content);
     };
-    const { register, reset, handleSubmit, } = useForm();
+    const { register, reset, handleSubmit, } = useForm<IFormType>();
 
     const user = useContext(UserContext);
     const onSubmit = async (data: IFormType) => {
